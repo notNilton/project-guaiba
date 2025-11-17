@@ -1,13 +1,31 @@
 {
   "name": "project-valkyrie",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "Monorepo Valkyrie System",
+  "private": true,
+  "packageManager": "pnpm@10.22.0",
+  "engines": {
+    "node": ">=24.10.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.15.1"
+  "scripts": {
+    "dev": "concurrently -n \"BACK,WEB,MOB\" -c \"blue,green,magenta\" \"pnpm --filter backend start:dev\" \"pnpm --filter web dev\" \"pnpm --filter mobile start\"",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "clean": "rimraf **/node_modules **/dist **/.turbo **/.expo",
+    "typecheck": "pnpm -r exec tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "concurrently": "^9.0.1",
+    "prettier": "^3.6.2",
+    "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "19.2.0",
+      "react-dom": "18.3.1",
+      "typescript": "5.9.3"
+    }
+  }
 }
