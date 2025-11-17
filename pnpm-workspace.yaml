@@ -3,10 +3,13 @@ packages:
   - 'packages/*'
 
 catalog:
+  # A chave DEVE ter aspas por causa do @ e /
+  '@types/node': ^24.10.0
+
+  # Dependências compartilhadas
+  rimraf: ^6.0.1
+  typescript: ^5.9.3
   react: ^19.2.0
   react-dom: ^19.2.0
-  typescript: ^5.9.3
-  "@types/react": ^19.2.0
-  "@types/react-dom": ^19.2.0
-
-nodeLinker: hoisted
+  '@types/react': ^19.2.0
+  '@types/react-dom': ^19.2.0
