@@ -1,2 +1,2 @@
-export * from './src/config';
-export * from './src/env';
+export { getConfig, resetConfig, type Config } from './src/config';
+export { validateEnv, type EnvironmentVariables } from './src/env';

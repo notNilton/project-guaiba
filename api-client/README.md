@@ -58,7 +58,7 @@ api-client/
 
 O ambiente **Local** possui as seguintes variáveis:
 
-- `baseUrl`: URL base da API (padrão: `http://localhost:3050`)
+- `baseUrl`: URL base da API (padrão: `http://localhost:3000`)
 - `authToken`: Token de autenticação (preenchido automaticamente após login)
 - `userId`: ID do usuário (preenchido automaticamente após criar/login)
 
