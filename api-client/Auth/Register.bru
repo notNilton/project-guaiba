@@ -1,0 +1,38 @@
+meta {
+  name: Register
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "João Silva",
+    "email": "joao@example.com",
+    "password": "senha123456",
+    "phoneNumber": "+5511999999999",
+    "age": 25,
+    "backupEmail": "joao.backup@example.com"
+  }
+}
+
+docs {
+  # Registrar Novo Usuário
+  
+  Cria uma nova conta de usuário no sistema.
+  
+  ## Campos Obrigatórios:
+  - name: Nome completo do usuário
+  - email: Email principal (único)
+  - password: Senha (mínimo 6 caracteres)
+  - phoneNumber: Telefone de contato
+  - age: Idade do usuário
+  
+  ## Campos Opcionais:
+  - backupEmail: Email alternativo
+}

@@ -1,0 +1,23 @@
+meta {
+  name: Delete User
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{baseUrl}}/users/{{userId}}
+  body: none
+  auth: none
+}
+
+docs {
+  # Deletar Usuário
+  
+  Remove um usuário do sistema permanentemente.
+  
+  ## Atenção:
+  Esta ação é irreversível! Certifique-se de que deseja realmente deletar o usuário.
+  
+  ## Variável:
+  - `userId`: ID do usuário a ser deletado
+}

@@ -1,0 +1,42 @@
+meta {
+  name: Create User
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Maria Santos",
+    "email": "maria@example.com",
+    "password": "senha789012",
+    "phoneNumber": "+5511988888888",
+    "age": 30,
+    "backupEmail": "maria.backup@example.com"
+  }
+}
+
+script:post-response {
+  // Salva o ID do usuário criado
+  if (res.body.id) {
+    bru.setEnvVar("userId", res.body.id);
+  }
+}
+
+docs {
+  # Criar Usuário
+  
+  Cria um novo usuário no sistema (endpoint administrativo).
+  
+  ## Validações:
+  - Email deve ser único
+  - Senha mínimo 6 caracteres
+  - Todos os campos obrigatórios devem ser preenchidos
+  
+  O ID do usuário criado será salvo automaticamente na variável `userId`.
+}

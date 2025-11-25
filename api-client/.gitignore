@@ -1,0 +1,15 @@
+# Bruno API Client
+node_modules/
+.env
+.env.local
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

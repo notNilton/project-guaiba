@@ -1,0 +1,37 @@
+meta {
+  name: Update User
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/users/{{userId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "João Silva Atualizado",
+    "age": 26,
+    "phoneNumber": "+5511977777777"
+  }
+}
+
+docs {
+  # Atualizar Usuário
+  
+  Atualiza parcialmente os dados de um usuário existente.
+  
+  ## Campos Atualizáveis:
+  - name
+  - email
+  - password
+  - backupEmail
+  - phoneNumber
+  - age
+  
+  ## Nota:
+  Todos os campos são opcionais. Apenas os campos enviados serão atualizados.
+  A variável `userId` deve estar definida.
+}

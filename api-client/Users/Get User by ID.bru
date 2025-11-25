@@ -1,0 +1,25 @@
+meta {
+  name: Get User by ID
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseUrl}}/users/{{userId}}
+  body: none
+  auth: none
+}
+
+docs {
+  # Buscar Usuário por ID
+  
+  Retorna os dados de um usuário específico pelo seu ID.
+  
+  ## Variável:
+  - `userId`: ID do usuário (definido automaticamente após criar/fazer login)
+  
+  ## Nota:
+  Certifique-se de que a variável `userId` está definida no ambiente ou execute primeiro:
+  - "Create User" ou
+  - "Login"
+}

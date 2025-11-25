@@ -1,0 +1,20 @@
+meta {
+  name: Get All Users
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/users
+  body: none
+  auth: none
+}
+
+docs {
+  # Listar Todos os Usuários
+  
+  Retorna uma lista com todos os usuários cadastrados no sistema.
+  
+  ## Nota:
+  Em produção, este endpoint geralmente requer autenticação e pode ter paginação.
+}
