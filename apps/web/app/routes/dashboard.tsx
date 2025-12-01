@@ -1,5 +1,5 @@
 import type { Route } from "./+types/dashboard";
-import { WelcomeScreen } from "../modules/dashboard/screens/WelcomeScreen";
+import { DashboardScreen } from "../modules/dashboard/screens/DashboardScreen";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,5 +8,5 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Dashboard() {
-  return <WelcomeScreen />;
+  return <DashboardScreen />;
 }
