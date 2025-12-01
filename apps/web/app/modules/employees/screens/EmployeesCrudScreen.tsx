@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
+import "./EmployeesCrud.style.css";
 
 interface Employee {
   id?: string;
@@ -60,74 +61,74 @@ export function EmployeesCrudScreen() {
   };
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
-      <header className="mb-8">
+    <div className="employees-crud-container">
+      <header className="page-header-simple">
         <button 
           onClick={() => navigate("/employees")}
-          className="text-gray-400 hover:text-white mb-4 flex items-center transition-colors"
+          className="back-button"
         >
           ← Voltar para lista
         </button>
-        <h1 className="text-3xl font-bold text-white mb-2">
+        <h1 className="page-title">
           {isEditing ? "Editar Funcionário" : "Novo Funcionário"}
         </h1>
-        <p className="text-gray-400">
+        <p className="page-subtitle">
           {isEditing ? "Atualize as informações do funcionário" : "Preencha as informações para adicionar um novo funcionário"}
         </p>
       </header>
 
-      <form onSubmit={handleSubmit} className="bg-gray-800/40 border border-gray-700/50 rounded-2xl p-8 backdrop-blur-sm">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-medium text-gray-300">Nome Completo</label>
+      <form onSubmit={handleSubmit} className="content-card form-card">
+        <div className="form-grid">
+          <div className="form-group">
+            <label htmlFor="name" className="form-label">Nome Completo</label>
             <input
               type="text"
               id="name"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors"
+              className="form-input"
               placeholder="Ex: João Silva"
               required
             />
           </div>
 
-          <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium text-gray-300">Email Corporativo</label>
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">Email Corporativo</label>
             <input
               type="email"
               id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors"
+              className="form-input"
               placeholder="joao@empresa.com"
               required
             />
           </div>
 
-          <div className="space-y-2">
-            <label htmlFor="role" className="text-sm font-medium text-gray-300">Cargo</label>
+          <div className="form-group">
+            <label htmlFor="role" className="form-label">Cargo</label>
             <input
               type="text"
               id="role"
               name="role"
               value={formData.role}
               onChange={handleChange}
-              className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors"
+              className="form-input"
               placeholder="Ex: Desenvolvedor Senior"
               required
             />
           </div>
 
-          <div className="space-y-2">
-            <label htmlFor="department" className="text-sm font-medium text-gray-300">Departamento</label>
+          <div className="form-group">
+            <label htmlFor="department" className="form-label">Departamento</label>
             <select
               id="department"
               name="department"
               value={formData.department}
               onChange={handleChange}
-              className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors"
+              className="form-select"
               required
             >
               <option value="">Selecione...</option>
@@ -140,71 +141,71 @@ export function EmployeesCrudScreen() {
             </select>
           </div>
 
-          <div className="space-y-2">
-            <label htmlFor="phone" className="text-sm font-medium text-gray-300">Telefone</label>
+          <div className="form-group">
+            <label htmlFor="phone" className="form-label">Telefone</label>
             <input
               type="tel"
               id="phone"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors"
+              className="form-input"
               placeholder="(00) 00000-0000"
             />
           </div>
 
-          <div className="space-y-2">
-            <label htmlFor="admissionDate" className="text-sm font-medium text-gray-300">Data de Admissão</label>
+          <div className="form-group">
+            <label htmlFor="admissionDate" className="form-label">Data de Admissão</label>
             <input
               type="date"
               id="admissionDate"
               name="admissionDate"
               value={formData.admissionDate}
               onChange={handleChange}
-              className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-purple-500 transition-colors"
+              className="form-input"
             />
           </div>
 
-          <div className="space-y-2">
-            <label htmlFor="status" className="text-sm font-medium text-gray-300">Status</label>
-            <div className="flex space-x-4 mt-2">
-              <label className="flex items-center cursor-pointer">
+          <div className="form-group">
+            <label htmlFor="status" className="form-label">Status</label>
+            <div className="radio-group">
+              <label className="radio-label">
                 <input
                   type="radio"
                   name="status"
                   value="active"
                   checked={formData.status === "active"}
                   onChange={handleChange}
-                  className="mr-2 text-purple-600 focus:ring-purple-500"
+                  className="radio-input"
                 />
-                <span className="text-white">Ativo</span>
+                <span className="radio-text">Ativo</span>
               </label>
-              <label className="flex items-center cursor-pointer">
+              <label className="radio-label">
                 <input
                   type="radio"
                   name="status"
                   value="inactive"
                   checked={formData.status === "inactive"}
                   onChange={handleChange}
-                  className="mr-2 text-purple-600 focus:ring-purple-500"
+                  className="radio-input"
                 />
-                <span className="text-gray-400">Inativo</span>
+                <span className="radio-text-inactive">Inativo</span>
               </label>
             </div>
           </div>
         </div>
 
-        <div className="flex justify-end space-x-4 pt-6 border-t border-gray-700/50">
+        <div className="form-actions">
           <button
             type="button"
             onClick={() => navigate("/employees")}
-            className="px-6 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700/50 transition-colors"
+            className="btn-cancel"
           >
             Cancelar
           </button>
           <button
             type="submit"
-            className="px-6 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg shadow-purple-900/20"
+            className="btn-submit"
           >
             {isEditing ? "Salvar Alterações" : "Criar Funcionário"}
           </button>

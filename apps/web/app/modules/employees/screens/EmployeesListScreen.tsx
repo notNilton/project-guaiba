@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
+import "./EmployeesList.style.css";
 
 interface Employee {
   id: string;
@@ -42,67 +43,66 @@ export function EmployeesListScreen() {
   const [employees] = useState<Employee[]>(MOCK_EMPLOYEES);
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <header className="flex justify-between items-center mb-8">
+    <div className="employees-container">
+      <header className="page-header">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Funcionários</h1>
-          <p className="text-gray-400">Gerencie a equipe da sua empresa</p>
+          <h1 className="page-title">Funcionários</h1>
+          <p className="page-subtitle">Gerencie a equipe da sua empresa</p>
         </div>
         <Link 
           to="/employees/new"
-          className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center"
+          className="btn-primary"
         >
           <span className="mr-2">+</span>
           Novo Funcionário
         </Link>
       </header>
 
-      <div className="bg-gray-800/40 border border-gray-700/50 rounded-2xl overflow-hidden backdrop-blur-sm">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
+      <div className="content-card">
+        <div className="table-container">
+          <table className="employees-table">
             <thead>
-              <tr className="border-b border-gray-700/50 text-gray-400 text-sm uppercase tracking-wider">
-                <th className="p-6 font-medium">Nome</th>
-                <th className="p-6 font-medium">Cargo</th>
-                <th className="p-6 font-medium">Departamento</th>
-                <th className="p-6 font-medium">Status</th>
-                <th className="p-6 font-medium text-right">Ações</th>
+              <tr className="table-header-row">
+                <th className="table-header-cell">Nome</th>
+                <th className="table-header-cell">Cargo</th>
+                <th className="table-header-cell">Departamento</th>
+                <th className="table-header-cell">Status</th>
+                <th className="table-header-cell text-right">Ações</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700/50">
+            <tbody className="table-body">
               {employees.map((employee) => (
                 <tr 
                   key={employee.id} 
-                  className="hover:bg-white/5 transition-colors group cursor-pointer"
                   onClick={() => navigate(`/employees/${employee.id}`)}
                 >
-                  <td className="p-6">
-                    <div className="flex items-center">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center font-bold text-white mr-4">
+                  <td className="table-cell">
+                    <div className="employee-info">
+                      <div className="employee-avatar">
                         {employee.name.charAt(0)}
                       </div>
                       <div>
-                        <p className="font-medium text-white">{employee.name}</p>
-                        <p className="text-sm text-gray-400">{employee.email}</p>
+                        <p className="employee-name">{employee.name}</p>
+                        <p className="employee-email">{employee.email}</p>
                       </div>
                     </div>
                   </td>
-                  <td className="p-6 text-gray-300">{employee.role}</td>
-                  <td className="p-6 text-gray-300">{employee.department}</td>
-                  <td className="p-6">
+                  <td className="table-cell table-cell-text">{employee.role}</td>
+                  <td className="table-cell table-cell-text">{employee.department}</td>
+                  <td className="table-cell">
                     <span
-                      className={`px-3 py-1 rounded-full text-xs font-medium border ${
+                      className={`status-badge ${
                         employee.status === "active"
-                          ? "bg-green-500/10 text-green-400 border-green-500/20"
-                          : "bg-red-500/10 text-red-400 border-red-500/20"
+                          ? "status-active"
+                          : "status-inactive"
                       }`}
                     >
                       {employee.status === "active" ? "Ativo" : "Inativo"}
                     </span>
                   </td>
-                  <td className="p-6 text-right">
+                  <td className="table-cell text-right">
                     <button 
-                      className="text-gray-400 hover:text-white mr-3 transition-colors"
+                      className="btn-icon"
                       onClick={(e) => {
                         e.stopPropagation();
                         navigate(`/employees/${employee.id}`);
@@ -111,7 +111,7 @@ export function EmployeesListScreen() {
                       ✏️
                     </button>
                     <button 
-                      className="text-gray-400 hover:text-red-400 transition-colors"
+                      className="btn-icon-delete"
                       onClick={(e) => {
                         e.stopPropagation();
                         // Handle delete
@@ -126,7 +126,7 @@ export function EmployeesListScreen() {
           </table>
         </div>
         {employees.length === 0 && (
-          <div className="p-12 text-center text-gray-400">
+          <div className="empty-state">
             Nenhum funcionário encontrado.
           </div>
         )}
