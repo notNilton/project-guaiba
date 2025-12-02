@@ -1,8 +1,34 @@
-import { Form, useNavigation } from "react-router";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import { useAuth } from "../../auth/AuthContext";
 
 export function LoginScreen() {
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsLoading(true);
+    setError(null);
+
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    try {
+      await login({ email, password });
+      navigate("/dashboard"); // Redirect to dashboard after successful login
+    } catch (err: any) {
+      console.error("Login failed:", err);
+      // Extract error message from backend response if available
+      const message = err.response?.data?.message || "Invalid email or password";
+      setError(message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 relative overflow-hidden">
@@ -20,7 +46,12 @@ export function LoginScreen() {
             <p className="text-gray-400">Enter your credentials to access the system</p>
           </div>
 
-          <Form method="post" className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+              <div className="bg-red-500/10 border border-red-500/50 text-red-200 px-4 py-3 rounded-lg text-sm text-center">
+                {error}
+              </div>
+            )}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                 Email Address
@@ -51,16 +82,16 @@ export function LoginScreen() {
 
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isLoading}
               className="w-full py-3.5 px-4 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold rounded-lg shadow-lg transform transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
             >
-              {isSubmitting ? (
+              {isLoading ? (
                 <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 "Sign In"
               )}
             </button>
-          </Form>
+          </form>
 
           <div className="mt-6 text-center">
             <a href="#" className="text-sm text-purple-400 hover:text-purple-300 transition-colors">
