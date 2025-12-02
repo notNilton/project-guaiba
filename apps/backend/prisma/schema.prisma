@@ -1,6 +1,7 @@
 // Configuração do Generator e Datasource
 generator client {
   provider = "prisma-client-js"
+  output   = "../../node_modules/@prisma/client"
 }
 
 datasource db {
@@ -57,6 +58,26 @@ enum MovementType {
 }
 
 // --------------------------------------
+// MÓDULO: EMPRESAS (MULTI-TENANCY)
+// --------------------------------------
+
+model Company {
+  id        String   @id @default(uuid())
+  name      String
+  cnpj      String   @unique
+  address   String?
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users     User[]
+  employees Employee[]
+  products  Product[]
+
+  @@map("companies")
+}
+
+// --------------------------------------
 // MÓDULO: AUTENTICAÇÃO E USUÁRIOS
 // --------------------------------------
 
@@ -74,6 +95,10 @@ model User {
   employee   Employee? @relation(fields: [employeeId], references: [id])
   employeeId String?   @unique
 
+  // Multi-tenancy: Usuário pertence a uma empresa (opcional para admin global)
+  company   Company? @relation(fields: [companyId], references: [id])
+  companyId String?
+
   @@map("users")
 }
 
@@ -84,7 +109,7 @@ model User {
 model Employee {
   id            String    @id @default(uuid())
   fullName      String
-  cpf           String    @unique
+  cpf           String
   rg            String?
   birthDate     DateTime?
   address       String?
@@ -101,9 +126,14 @@ model Employee {
   complianceLogs ComplianceLog[] // Verificações de anomalia (BSF, VR, etc)
   schedules      WorkSchedule[] // Escalas
 
+  // Multi-tenancy
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([cpf, companyId]) // CPF único por empresa
   @@map("employees")
 }
 
@@ -189,16 +219,21 @@ model ComplianceLog {
 model Product {
   id          String  @id @default(uuid())
   name        String
-  code        String? @unique // Código de patrimônio ou SKU
+  code        String? // Código de patrimônio ou SKU
   description String?
   quantity    Int     @default(0) // Estoque atual
   minQuantity Int     @default(5) // Para alerta de estoque baixo
 
   movements StockMovement[]
 
+  // Multi-tenancy
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([code, companyId]) // Código único por empresa
   @@map("products")
 }
 

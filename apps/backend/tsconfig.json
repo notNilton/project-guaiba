@@ -31,5 +31,11 @@
     /* Otimizações */
     "incremental": true,
     "isolatedModules": true
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    }
   }
 }
