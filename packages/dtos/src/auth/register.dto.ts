@@ -16,5 +16,5 @@ export class RegisterDto {
 
   @IsString()
   @IsNotEmpty()
-  companyHash!: string;
+  companyKey!: string;
 }

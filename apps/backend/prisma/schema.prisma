@@ -62,13 +62,14 @@ enum MovementType {
 // --------------------------------------
 
 model Company {
-  id        String   @id @default(uuid())
-  name      String
-  cnpj      String   @unique
-  address   String?
-  phone     String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(uuid())
+  companyKey String   @unique @default(uuid())
+  name       String
+  cnpj       String   @unique
+  address    String?
+  phone      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   users     User[]
   employees Employee[]

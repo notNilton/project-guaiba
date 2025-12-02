@@ -17,10 +17,10 @@ export function RegisterScreen() {
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-    const companyHash = formData.get("companyHash") as string;
+    const companyKey = formData.get("companyKey") as string;
 
     try {
-      await register({ name, email, password, companyHash });
+      await register({ name, email, password, companyKey });
       navigate("/login"); // Redirect to login after successful registration
     } catch (err: any) {
       console.error("Registration failed:", err);
@@ -97,16 +97,16 @@ export function RegisterScreen() {
             </div>
 
             <div>
-              <label htmlFor="companyHash" className="block text-sm font-medium text-gray-300 mb-2">
-                Company Hash
+              <label htmlFor="companyKey" className="block text-sm font-medium text-gray-300 mb-2">
+                Company Key
               </label>
               <input
                 type="text"
-                name="companyHash"
-                id="companyHash"
+                name="companyKey"
+                id="companyKey"
                 required
                 className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-500 transition-all duration-200 outline-none"
-                placeholder="Enter your company hash"
+                placeholder="Enter your company key"
               />
             </div>
 

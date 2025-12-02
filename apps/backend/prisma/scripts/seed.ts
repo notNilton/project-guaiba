@@ -19,6 +19,7 @@ async function main() {
     create: {
       name: 'Valkyrie Systems',
       cnpj: '12345678000199',
+      companyKey: 'VALKYRIE-123',
       address: 'Tech Park, Porto Alegre, RS',
       phone: '51999999999',
     },

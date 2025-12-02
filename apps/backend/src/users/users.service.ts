@@ -10,7 +10,7 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<IUserResponse> {
     const company = await this.prisma.company.findUnique({
-      where: { companyHash: createUserDto.companyHash },
+      where: { companyKey: createUserDto.companyKey },
     });
 
     if (!company) {
