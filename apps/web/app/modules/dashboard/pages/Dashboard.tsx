@@ -12,7 +12,7 @@ import {
   UserCircle
 } from "lucide-react";
 import { useAuth } from "../../auth/AuthContext";
-import "./Dashboard.style.css";
+import "./Dashboard.css";
 
 export function DashboardScreen() {
   const { user } = useAuth();
