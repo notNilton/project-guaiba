@@ -1,5 +1,5 @@
 import type { Route } from "./+types/employees-create";
-import { EmployeesCrudScreen } from "../modules/employees/screens/EmployeesCrudScreen";
+import { EmployeeFormScreen } from "../modules/employees/pages/EmployeeForm";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,5 +8,5 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function CreateEmployee() {
-  return <EmployeesCrudScreen />;
+  return <EmployeeFormScreen />;
 }

@@ -1,4 +1,4 @@
-import type { Route } from "./+types/employees-edit";
+import type { Route } from "./+types/employees.$id.edit";
 import { EmployeeFormScreen } from "../modules/employees/pages/EmployeeForm";
 
 export function meta({}: Route.MetaArgs) {

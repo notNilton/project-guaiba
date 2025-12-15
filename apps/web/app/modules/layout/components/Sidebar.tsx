@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router";
 import { LayoutDashboard, Users, Settings, LogOut } from "lucide-react";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/context/auth.context";
 import "./Sidebar.css";
 
 export function Sidebar() {

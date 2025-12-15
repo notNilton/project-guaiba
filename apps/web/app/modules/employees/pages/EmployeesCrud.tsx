@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
-import "./EmployeesCrud.style.css";
+import "./EmployeesCrud.css";
 
 interface Employee {
   id?: string;

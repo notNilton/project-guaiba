@@ -11,7 +11,7 @@ import {
   Briefcase,
   UserCircle
 } from "lucide-react";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/context/auth.context";
 import "./Dashboard.css";
 
 export function DashboardScreen() {

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import type { IAuthResponse, ILoginRequest } from '@project-valkyrie/interfaces';
-import { api } from './api';
+import { api } from '../services/auth.service';
 
 interface AuthContextType {
   user: IAuthResponse | null;

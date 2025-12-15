@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useAuth } from "../modules/auth/AuthContext";
+import { useAuth } from "../modules/auth/context/auth.context";
 import { ProtectedLayoutScreen } from "../modules/layout/screens/ProtectedLayoutScreen";
 
 export default function ProtectedLayout() {

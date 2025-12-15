@@ -18,6 +18,7 @@ export interface IAuthResponse {
   email: string;
   role: UserRole;
   status: UserStatus;
+  companyId?: string;
 }
 
 export interface IJwtPayload {
@@ -25,6 +26,7 @@ export interface IJwtPayload {
   email: string;
   role: UserRole;
   status: UserStatus;
+  companyId?: string;
 }
 
 export interface IAuthenticatedRequest {
