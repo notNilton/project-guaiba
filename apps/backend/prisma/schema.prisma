@@ -1,7 +1,6 @@
 // Configuração do Generator e Datasource
 generator client {
   provider = "prisma-client-js"
-  output   = "../../node_modules/@prisma/client"
 }
 
 datasource db {
@@ -115,6 +114,7 @@ model Employee {
   birthDate     DateTime?
   address       String?
   phone         String?
+  photoUrl      String? // URL ou caminho da foto do funcionário
   jobTitle      String
   admissionDate DateTime  @default(now())
 

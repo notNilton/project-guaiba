@@ -1,23 +1,10 @@
-import { Link, useLocation } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import { LayoutDashboard, Users, Settings, LogOut } from "lucide-react";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/context/auth.context";
 import "./Sidebar.css";
 
 export function Sidebar() {
-  const location = useLocation();
   const { user, logout } = useAuth();
-
-  const getLinkClass = (path: string) => {
-    // For root path, exact match is required to avoid it being active for all routes
-    if (path === "/" && location.pathname === "/") {
-      return "nav-link active";
-    }
-    // For other paths, check if the current path starts with the link path
-    if (path !== "/" && location.pathname.startsWith(path)) {
-      return "nav-link active";
-    }
-    return "nav-link inactive";
-  };
 
   return (
     <aside className="sidebar">
@@ -26,20 +13,30 @@ export function Sidebar() {
           Projeto Porto Alegre
         </h2>
       </div>
-      
+
       <nav className="sidebar-nav">
-        <Link to="/" className={getLinkClass("/")}>
+        <NavLink
+          to="/"
+          className={({ isActive }) => isActive ? "nav-link active" : "nav-link inactive"}
+          end
+        >
           <LayoutDashboard className="nav-icon" size={20} />
           Dashboard
-        </Link>
-        <Link to="/employees" className={getLinkClass("/employees")}>
+        </NavLink>
+        <NavLink
+          to="/employees"
+          className={({ isActive }) => isActive ? "nav-link active" : "nav-link inactive"}
+        >
           <Users className="nav-icon" size={20} />
           Funcionários
-        </Link>
-        <Link to="#" className="nav-link inactive">
+        </NavLink>
+        <NavLink
+          to="/settings"
+          className={({ isActive }) => isActive ? "nav-link active" : "nav-link inactive"}
+        >
           <Settings className="nav-icon" size={20} />
           Configurações
-        </Link>
+        </NavLink>
       </nav>
 
       <div className="sidebar-footer">

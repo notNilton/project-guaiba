@@ -1,7 +1,7 @@
 import type { Route } from "./+types/employees-create";
-import { EmployeesCrudScreen } from "../modules/employees/screens/EmployeesCrudScreen";
+import { EmployeesCrudScreen } from "../modules/employees/pages/EmployeesCrud";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     { title: "Novo Funcionário - Valkyrie System" },
   ];

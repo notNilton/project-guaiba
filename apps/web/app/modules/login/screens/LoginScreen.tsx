@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/context/auth.context";
+import { getRedirectPath } from "../../../utils";
 
 export function LoginScreen() {
   const navigate = useNavigate();
@@ -18,8 +19,10 @@ export function LoginScreen() {
     const password = formData.get("password") as string;
 
     try {
-      await login({ email, password });
-      navigate("/dashboard"); // Redirect to dashboard after successful login
+      const user = await login({ email, password });
+      // Use role-based redirect after successful login
+      const redirectPath = getRedirectPath(user.role);
+      navigate(redirectPath);
     } catch (err: any) {
       console.error("Login failed:", err);
       // Extract error message from backend response if available

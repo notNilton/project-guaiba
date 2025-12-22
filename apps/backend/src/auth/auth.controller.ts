@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LoginDto, RegisterDto } from '@project-valkyrie/dtos';
 import { AuthService } from './auth.service';
+import { IJwtPayload } from '@project-valkyrie/interfaces';
 
 @Controller('auth')
 export class AuthController {
@@ -19,7 +20,7 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('me')
-  getProfile(@Request() req: any) {
+  getProfile(@Req() req: { user: IJwtPayload }): IJwtPayload {
     return req.user;
   }
 }

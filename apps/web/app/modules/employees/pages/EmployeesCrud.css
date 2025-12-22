@@ -1,0 +1,99 @@
+/* Layout & Containers */
+.employees-crud-container {
+  padding: 2rem;
+  max-width: 56rem;
+  /* max-w-4xl */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Header Section */
+.page-header-simple {
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 1.875rem;
+  /* text-3xl */
+  font-weight: 700;
+  /* font-bold */
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+  color: #9ca3af;
+  /* text-gray-400 */
+}
+
+.back-button {
+  color: #9ca3af;
+  /* text-gray-400 */
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  transition: color 150ms;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+}
+
+.back-button:hover {
+  color: white;
+}
+
+/* Buttons */
+.btn-submit {
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  background-image: linear-gradient(to right, #9333ea, #2563eb);
+  /* from-purple-600 to-blue-600 */
+  color: white;
+  font-weight: 500;
+  transition: all 150ms;
+  box-shadow: 0 10px 15px -3px rgba(88, 28, 135, 0.2);
+  /* shadow-purple-900/20 */
+  border: none;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background-image: linear-gradient(to right, #7e22ce, #1d4ed8);
+  /* hover:from-purple-700 hover:to-blue-700 */
+}
+
+.btn-cancel {
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  color: #d1d5db;
+  /* text-gray-300 */
+  transition: color 150ms, background-color 150ms;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-cancel:hover {
+  color: white;
+  background-color: rgba(55, 65, 81, 0.5);
+  /* hover:bg-gray-700/50 */
+}
+
+/* Card */
+.content-card {
+  background-color: rgba(31, 41, 55, 0.4);
+  /* bg-gray-800/40 */
+  border: 1px solid rgba(55, 65, 81, 0.5);
+  /* border-gray-700/50 */
+  border-radius: 1rem;
+  /* rounded-2xl */
+  overflow: hidden;
+  backdrop-filter: blur(4px);
+  /* backdrop-blur-sm */
+}
+
+.form-card {
+  padding: 2rem;
+}

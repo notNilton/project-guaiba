@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useAuth } from "../../auth/AuthContext";
+import { useAuth } from "../../auth/context/auth.context";
 
 export function RegisterScreen() {
   const navigate = useNavigate();

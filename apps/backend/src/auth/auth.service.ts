@@ -32,16 +32,23 @@ export class AuthService {
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = user;
-      const payload = { email: user.email, sub: user.id, role: user.role, status: user.status };
-      
+      const payload = {
+        email: user.email,
+        sub: user.id,
+        role: user.role,
+        status: user.status,
+        companyId: user.companyId,
+      };
+
       return {
         accessToken: this.jwtService.sign(payload),
         user: {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            role: user.role as any, // Cast to any to avoid type mismatch if types are slightly different
-            status: user.status as any,
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role as any, // Cast to any to avoid type mismatch if types are slightly different
+          status: user.status as any,
+          companyId: user.companyId || undefined,
         },
       };
     }

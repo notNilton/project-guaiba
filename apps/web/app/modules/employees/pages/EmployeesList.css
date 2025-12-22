@@ -178,4 +178,32 @@
   padding: 3rem;
   text-align: center;
   color: #9ca3af; /* text-gray-400 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background-color: rgb(31, 41, 55); /* bg-gray-800 */
+  border: 1px solid rgba(55, 65, 81, 0.5);
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 28rem; /* max-w-md */
+  width: 90%;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }

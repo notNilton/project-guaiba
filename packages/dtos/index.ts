@@ -4,3 +4,7 @@ export * from './src/users/create-user.dto';
 export * from './src/users/delete-user.dto';
 export * from './src/users/update-user.dto';
 export * from './src/users/user.dto';
+export * from './src/employees/create-employee.dto';
+export * from './src/employees/delete-employee.dto';
+export * from './src/employees/update-employee.dto';
+export * from './src/employees/employee.dto';

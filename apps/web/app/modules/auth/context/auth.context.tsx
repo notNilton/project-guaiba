@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import type { IAuthResponse, ILoginRequest } from '@project-valkyrie/interfaces';
-import { api } from './api';
+import { api } from '../services/auth.service';
 
 interface AuthContextType {
   user: IAuthResponse | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (credentials: ILoginRequest) => Promise<void>;
+  login: (credentials: ILoginRequest) => Promise<IAuthResponse>;
   register: (data: any) => Promise<void>;
   logout: () => void;
 }
@@ -37,13 +37,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     checkAuth();
   }, []);
 
-  const login = async (credentials: ILoginRequest) => {
+  const login = async (credentials: ILoginRequest): Promise<IAuthResponse> => {
     try {
       const response = await api.post<{ accessToken: string; user: IAuthResponse }>('/auth/login', credentials);
       const { accessToken, user } = response.data;
       
       localStorage.setItem('token', accessToken);
       setUser(user);
+      return user;
     } catch (error) {
       console.error('Login failed:', error);
       throw error;

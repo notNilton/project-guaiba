@@ -19,8 +19,8 @@
     "dev:mobile": "pnpm --filter mobile start",
     "prisma:generate": "pnpm --filter backend exec prisma generate",
     "prisma:migrate": "pnpm --filter backend exec prisma migrate",
+    "prisma:deploy": "pnpm --filter backend exec prisma migrate deploy",
     "prisma:reset": "pnpm --filter backend exec prisma migrate reset",
-    "prisma:push": "pnpm --filter backend exec prisma db push",
     "prisma:studio": "pnpm --filter backend exec prisma studio"
   },
   "devDependencies": {

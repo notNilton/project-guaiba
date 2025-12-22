@@ -1,67 +1,47 @@
 services:
-  database:
-    image: postgres:18
-    container_name: radare-database
-    environment:
-      POSTGRES_DB: radare
-      POSTGRES_USER: radare
-      POSTGRES_PASSWORD: radare
-      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
-    volumes:
-      - ./postgres_data:/var/lib/postgresql
-    networks:
-      - app-network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "radare"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 60s
-
-  backend:
+  guaripe-backend:
+    image: localhost:5000/guaripe-backend:latest
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: apps/backend/Dockerfile
     ports:
-      - "8080:8080"
+      - '3000:3000'
     volumes:
-      - ./backend:/app
-    container_name: radare-backend
-    restart: unless-stopped
-    depends_on:
-      database:
-        condition: service_healthy
+      - ./apps/backend:/app
+    container_name: guaripe-backend
+    restart: always
     networks:
-      - app-network
+      - nilbyte-prod
     environment:
-      - DB_HOST=postgres
+      - DB_HOST=guaripe-db
       - DB_PORT=5432
       - DB_USER=radare
       - DB_PASSWORD=radare
       - DB_NAME=radare
       - DB_SSLMODE=disable
       - JWT_SECRET=your_secret_key
-      - PORT=8080
+      - PORT=3000
 
-  frontend:
+  guaripe-frontend:
+    image: localhost:5000/guaripe-frontend:latest
     build:
-      context: ./webapp
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: apps/web/Dockerfile
     ports:
-      - "3000:3000"
+      - '80:80'
     volumes:
-      - ./webapp:/app
+      - ./apps/web:/app
       - /app/node_modules
-    container_name: radare-frontend
-    restart: unless-stopped
+    container_name: guaripe-frontend
+    restart: always
     depends_on:
-      - backend
+      - guaripe-backend
     networks:
-      - app-network
+      - nilbyte-prod
     environment:
-      - VITE_API_URL=http://backend:8080
+      - VITE_API_URL=http://guaripe-backend:3000
+      - PORT=80
 
 networks:
-  app-network:
-    driver: bridge
+  nilbyte-prod:
+    external: true

@@ -64,7 +64,7 @@ const createConfig = () =>
       port: parseInt(process.env.DB_PORT || '5432', 10),
       name: process.env.DB_NAME || 'valkyrie',
       user: process.env.DB_USER || 'postgres',
-      password: process.env.DB_PASSWORD || 'postgres',
+      password: process.env.DB_PASSWORD || 'LyVw&wZefNVNrq&^',
       get url() {
         return `postgresql://${this.user}:${this.password}@${this.host}:${this.port}/${this.name}`;
       },
