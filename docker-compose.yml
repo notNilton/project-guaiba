@@ -1,6 +1,5 @@
 services:
   guaripe-backend:
-    image: localhost:5000/guaripe-backend:latest
     build:
       context: .
       dockerfile: apps/backend/Dockerfile
@@ -9,39 +8,21 @@ services:
     volumes:
       - ./apps/backend:/app
     container_name: guaripe-backend
-    restart: always
-    networks:
-      - nilbyte-prod
     environment:
-      - DB_HOST=guaripe-db
-      - DB_PORT=5432
-      - DB_USER=radare
-      - DB_PASSWORD=radare
-      - DB_NAME=radare
-      - DB_SSLMODE=disable
-      - JWT_SECRET=your_secret_key
+      - DATABASE_URL=postgresql://user:password@localhost:5432/guaripe_dev
       - PORT=3000
+    # Para desenvolvimento local, usamos um banco local ou conectamos via tunnel/vpn
+    # Não tentamos conectar na rede de produção diretamente aqui para evitar acidentes.
 
   guaripe-frontend:
-    image: localhost:5000/guaripe-frontend:latest
     build:
       context: .
       dockerfile: apps/web/Dockerfile
     ports:
-      - '80:80'
+      - '8080:80'
     volumes:
       - ./apps/web:/app
       - /app/node_modules
     container_name: guaripe-frontend
-    restart: always
-    depends_on:
-      - guaripe-backend
-    networks:
-      - nilbyte-prod
     environment:
-      - VITE_API_URL=http://guaripe-backend:3000
-      - PORT=80
-
-networks:
-  nilbyte-prod:
-    external: true
+      - VITE_API_URL=http://localhost:3000

@@ -1,28 +1,37 @@
-name: Build and Deploy
+name: Deploy Local
 
 on:
   push:
-    branches:
-      - main
+    branches: ['main']
+  # Permite rodar manualmente se necessário
+  workflow_dispatch:
 
 jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    # Importante: Isso diz para rodar no SEU servidor, não na nuvem do GitHub
+    runs-on: [self-hosted, local-builder]
+
     steps:
-      - name: Checkout code
+      - name: Checkout do Código
         uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build and Push Backend
+      - name: Build e Push da Imagem
         run: |
-          docker build -t localhost:5000/guaripe-backend:latest -f apps/backend/Dockerfile .
-          # Uncomment the following line if you have a local registry running or configured
-          # docker push localhost:5000/guaripe-backend:latest
+          # 1. Builda a imagem com a tag do registry local
+          docker build -t localhost:5000/guaripe-backend:latest .
 
-      - name: Build and Push Frontend
+          # 2. Envia a imagem para o Registry local (histórico)
+          docker push localhost:5000/guaripe-backend:latest
+
+      - name: Atualizar Container
         run: |
-          docker build -t localhost:5000/guaripe-frontend:latest -f apps/web/Dockerfile .
-          # Uncomment the following line if you have a local registry running or configured
-          # docker push localhost:5000/guaripe-frontend:latest
+          # 3. Garante que o Docker use a imagem do registry
+          docker pull localhost:5000/guaripe-backend:latest
+
+          # 4. Recria o container usando a imagem do registry
+          docker compose -f /opt/nilbyte-infra/docker-compose.production.yml up -d --no-deps guaripe-backend
+
+      - name: Limpeza (Opcional)
+        run: |
+          # Remove imagens antigas (dangling) para economizar espaço
+          docker image prune -f
