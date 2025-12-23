@@ -10,8 +10,12 @@ services:
       - ./apps/backend:/app
     container_name: guaripe-backend
     environment:
-      - DATABASE_URL=postgresql://user:password@localhost:5432/guaripe_dev
+    environment:
+      # 'host.docker.internal' permite acessar o banco que está rodando no Host
+      - DATABASE_URL=postgresql://user:password@host.docker.internal:5432/guaripe_dev
       - PORT=3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     # Para desenvolvimento local, usamos um banco local ou conectamos via tunnel/vpn
     # Não tentamos conectar na rede de produção diretamente aqui para evitar acidentes.
 

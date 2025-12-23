@@ -14,11 +14,18 @@ jobs:
 
       - name: Build e Push
         run: |
-          # Constrói a imagem apontando para o registry local
-          docker compose build
+          # Define tags (Latest + SHA do Commit)
+          IMAGE_TAG=${{ github.sha }}
 
-          # Envia para o registry local (localhost:5000)
-          docker compose push
+          # Backend
+          docker build -t localhost:5000/guaripe/backend:latest -t localhost:5000/guaripe/backend:$IMAGE_TAG -f apps/backend/Dockerfile .
+          docker push localhost:5000/guaripe/backend:latest
+          docker push localhost:5000/guaripe/backend:$IMAGE_TAG
+
+          # Frontend
+          docker build -t localhost:5000/guaripe/frontend:latest -t localhost:5000/guaripe/frontend:$IMAGE_TAG -f apps/web/Dockerfile .
+          docker push localhost:5000/guaripe/frontend:latest
+          docker push localhost:5000/guaripe/frontend:$IMAGE_TAG
 
       - name: Deploy
         run: |

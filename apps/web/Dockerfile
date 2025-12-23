@@ -20,12 +20,24 @@ COPY --from=builder /app/apps/web/build/client /usr/share/nginx/html
 # Create custom nginx config for SPA routing (fallback to index.html)
 RUN echo 'server { \
     listen 80; \
+    server_name localhost; \
+    root /usr/share/nginx/html; \
+    index index.html; \
+    include /etc/nginx/mime.types; \
+    \
     location / { \
-        root /usr/share/nginx/html; \
-        index index.html index.htm; \
         try_files $uri $uri/ /index.html; \
     } \
+    \
+    # Fix for static assets caching \
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ { \
+        expires 1y; \
+        add_header Cache-Control "public, no-transform"; \
+    } \
 }' > /etc/nginx/conf.d/default.conf
+
+# Ensure permissions
+RUN chmod -R 755 /usr/share/nginx/html
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
