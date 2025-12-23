@@ -1,37 +1,27 @@
-name: Deploy Local
+name: Deploy Local (NilByte)
 
 on:
   push:
     branches: ['main']
-  # Permite rodar manualmente se necessário
-  workflow_dispatch:
 
 jobs:
   build-and-deploy:
-    # Importante: Isso diz para rodar no SEU servidor, não na nuvem do GitHub
     runs-on: [self-hosted, local-builder]
 
     steps:
       - name: Checkout do Código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Build e Push da Imagem
+      - name: Build e Push
         run: |
-          # 1. Builda a imagem com a tag do registry local
-          docker build -t localhost:5000/guaripe-backend:latest .
+          # Constrói a imagem apontando para o registry local
+          docker compose build
 
-          # 2. Envia a imagem para o Registry local (histórico)
-          docker push localhost:5000/guaripe-backend:latest
+          # Envia para o registry local (localhost:5000)
+          docker compose push
 
-      - name: Atualizar Container
+      - name: Deploy
         run: |
-          # 3. Garante que o Docker use a imagem do registry
-          docker pull localhost:5000/guaripe-backend:latest
-
-          # 4. Recria o container usando a imagem do registry
-          docker compose -f /opt/nilbyte-infra/docker-compose.production.yml up -d --no-deps guaripe-backend
-
-      - name: Limpeza (Opcional)
-        run: |
-          # Remove imagens antigas (dangling) para economizar espaço
-          docker image prune -f
+          # Atualiza os containers em execução
+          docker compose pull
+          docker compose up -d

@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: apps/backend/Dockerfile
+    image: localhost:5000/guaripe/backend:latest
     ports:
       - '3000:3000'
     volumes:
@@ -18,6 +19,7 @@ services:
     build:
       context: .
       dockerfile: apps/web/Dockerfile
+    image: localhost:5000/guaripe/frontend:latest
     ports:
       - '8080:80'
     volumes:
