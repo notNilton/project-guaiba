@@ -5,7 +5,7 @@ services:
       dockerfile: apps/backend/Dockerfile
     image: localhost:5000/guaripe/backend:latest
     ports:
-      - '3000:3000'
+      - '4201:3000'
     volumes:
       - ./apps/backend:/app
     container_name: guaripe-backend
@@ -21,10 +21,10 @@ services:
       dockerfile: apps/web/Dockerfile
     image: localhost:5000/guaripe/frontend:latest
     ports:
-      - '8080:80'
+      - '4202:80'
     volumes:
       - ./apps/web:/app
       - /app/node_modules
     container_name: guaripe-frontend
     environment:
-      - VITE_API_URL=http://localhost:3000
+      - VITE_API_URL=http://localhost:4201
